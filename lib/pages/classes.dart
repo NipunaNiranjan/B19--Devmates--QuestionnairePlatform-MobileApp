@@ -24,7 +24,7 @@ class _ClassPageState extends State<ClassPage> {
                 ),
                 RichText(
                   text: TextSpan(
-                      text: "Oct",
+                      text: "June",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color(0XFF263064),
@@ -32,7 +32,7 @@ class _ClassPageState extends State<ClassPage> {
                       ),
                       children: [
                         TextSpan(
-                          text: " 2009",
+                          text: " 2022",
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 16,
