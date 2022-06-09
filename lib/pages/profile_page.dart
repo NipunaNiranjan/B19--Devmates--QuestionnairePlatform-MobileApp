@@ -120,16 +120,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: Theme.of(context).accentColor,
                 ),
                 title: Text(
-                  'Application',
+                  'DashBoard',
                   style: TextStyle(
                       fontSize: 17, color: Theme.of(context).accentColor),
                 ),
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SplashScreen(title: "Application")));
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                  );
                 },
               ),
               ListTile(
