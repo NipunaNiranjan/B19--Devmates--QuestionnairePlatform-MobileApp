@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     new Timer(Duration(milliseconds: 10), () {
       setState(() {
         _isVisible =
-            true; // Now it is showing fade effect and navigating to Login page
+            true; // it is showing fade effect and navigating to Login page
       });
     });
   }
@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Icon(
                   Icons.school,
                   size: 128,
-                ), //put your logo here
+                ),
               ),
             ),
             decoration: BoxDecoration(
