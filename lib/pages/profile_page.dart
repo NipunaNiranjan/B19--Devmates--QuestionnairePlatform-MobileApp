@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/pages/login_page.dart';
-import 'package:FLUTTER_MOBILE_APPLICATION/pages/splash_screen.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/pages/widgets/header_widget.dart';
 
 import 'registration_page.dart';

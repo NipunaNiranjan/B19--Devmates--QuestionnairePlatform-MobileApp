@@ -132,7 +132,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               if (!(val!.isEmpty) &&
                                   !RegExp(r"^(\d+)*$").hasMatch(val)) {
                                 return "Enter a valid phone number";
+                              } else if (val.length != 10) {
+                                return 'enter valid phone number';
                               }
+
                               return null;
                             },
                           ),
@@ -201,7 +204,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     (Route<dynamic> route) => false);
                               }
                               // } else {
-                              //   print("REgister Error");
+                              //   print("Register Error");
                               // }
                             },
                           ),
