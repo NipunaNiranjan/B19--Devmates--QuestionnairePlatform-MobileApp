@@ -148,6 +148,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             validator: (val) {
                               if (val!.isEmpty) {
                                 return "Please enter your password";
+                              } else if (val.length < 7) {
+                                return 'password must be least 7 characters';
                               }
                               return null;
                             },
