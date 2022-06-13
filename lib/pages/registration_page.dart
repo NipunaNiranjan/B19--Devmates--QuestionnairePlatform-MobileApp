@@ -1,3 +1,4 @@
+import 'package:FLUTTER_MOBILE_APPLICATION/pages/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/common/theme_helper.dart';
@@ -27,6 +28,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     final phone_number_controller = TextEditingController();
     final password_controller = TextEditingController();
     final role_controller = TextEditingController();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -132,7 +134,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               if (!(val!.isEmpty) &&
                                   !RegExp(r"^(\d+)*$").hasMatch(val)) {
                                 return "Enter a valid phone number";
+                              } else if (val.length != 10) {
+                                return 'enter valid phone number';
                               }
+
                               return null;
                             },
                           ),
@@ -148,6 +153,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             validator: (val) {
                               if (val!.isEmpty) {
                                 return "Please enter your password";
+                              } else if (val.length < 7) {
+                                return 'password must be least 7 characters';
                               }
                               return null;
                             },
@@ -178,7 +185,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   "username": username_controller.text,
                                   "email": email_controller.text,
                                   "role": role_controller.text,
-                                  "phonenumber": phone_number_controller.text,
+                                  "phone": phone_number_controller.text,
                                   "password": password_controller.text,
                                 };
                                 var user_provider = new UserProvider();
@@ -186,6 +193,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 try {
                                   res = await user_provider.registerUser(body);
                                   print(res);
+                                  if (res.statusCode == 201) {
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                            builder: (context) => LoginPage()),
+                                        (Route<dynamic> route) => false);
+                                  }
                                 } catch (e) {
                                   print(e);
                                   res = 401;
@@ -193,102 +206,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
                                 //print(res.statusCode);
                                 //if (res.statusCode == 201) {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfilePage()),
-                                    (Route<dynamic> route) => false);
+
                               }
                               // } else {
-                              //   print("REgister Error");
+                              //   print("Register Error");
                               // }
                             },
                           ),
-                        ),
-                        SizedBox(height: 30.0),
-                        Text(
-                          "Or create account using social media",
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        SizedBox(height: 25.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              child: FaIcon(
-                                FontAwesomeIcons.googlePlus,
-                                size: 35,
-                                color: HexColor("#EC2D2F"),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ThemeHelper().alartDialog(
-                                          "Google Plus",
-                                          "You tap on GooglePlus social icon.",
-                                          context);
-                                    },
-                                  );
-                                });
-                              },
-                            ),
-                            SizedBox(
-                              width: 30.0,
-                            ),
-                            GestureDetector(
-                              child: Container(
-                                padding: EdgeInsets.all(0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(
-                                      width: 5, color: HexColor("#40ABF0")),
-                                  color: HexColor("#40ABF0"),
-                                ),
-                                child: FaIcon(
-                                  FontAwesomeIcons.twitter,
-                                  size: 23,
-                                  color: HexColor("#FFFFFF"),
-                                ),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ThemeHelper().alartDialog(
-                                          "Twitter",
-                                          "You tap on Twitter social icon.",
-                                          context);
-                                    },
-                                  );
-                                });
-                              },
-                            ),
-                            SizedBox(
-                              width: 30.0,
-                            ),
-                            GestureDetector(
-                              child: FaIcon(
-                                FontAwesomeIcons.facebook,
-                                size: 35,
-                                color: HexColor("#3E529C"),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ThemeHelper().alartDialog(
-                                          "Facebook",
-                                          "You tap on Facebook social icon.",
-                                          context);
-                                    },
-                                  );
-                                });
-                              },
-                            ),
-                          ],
                         ),
                       ],
                     ),
