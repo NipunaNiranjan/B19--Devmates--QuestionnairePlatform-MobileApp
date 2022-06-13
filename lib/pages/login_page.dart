@@ -1,3 +1,4 @@
+import 'package:FLUTTER_MOBILE_APPLICATION/data/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final username_controller = TextEditingController();
+    final password_controller = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -53,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Container(
                                 child: TextField(
+                                  controller: username_controller,
                                   decoration: ThemeHelper().textInputDecoration(
                                       'User Name', 'Enter your user name'),
                                 ),
@@ -62,12 +66,16 @@ class _LoginPageState extends State<LoginPage> {
                               SizedBox(height: 30.0),
                               Container(
                                 child: TextField(
+                                  controller: password_controller,
                                   obscureText: true,
                                   decoration: ThemeHelper().textInputDecoration(
                                       'Password', 'Enter your password'),
                                 ),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Container(
                                 decoration:
@@ -85,13 +93,35 @@ class _LoginPageState extends State<LoginPage> {
                                           color: Colors.white),
                                     ),
                                   ),
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    // if (_formKey.currentState!.validate()) {
+                                    Map body = {
+                                      "username": username_controller.text,
+                                      "password": password_controller.text,
+                                    };
+                                    var user_provider = new UserProvider();
+                                    var res;
+                                    try {
+                                      res = await user_provider.loginUser(body);
+                                      print(res);
+                                      if (res.statusCode == 200) {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProfilePage()));
+                                      }
+                                    } catch (e) {
+                                      print(e);
+                                      res = 401;
+                                    }
+
+                                    //print(res.statusCode);
+                                    //if (res.statusCode == 201) {
+
+                                    //}
+
                                     //After successful login we will redirect to profile page. Let's create profile page now
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProfilePage()));
                                   },
                                 ),
                               ),

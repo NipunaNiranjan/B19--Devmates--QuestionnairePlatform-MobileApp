@@ -1,3 +1,4 @@
+import 'package:FLUTTER_MOBILE_APPLICATION/pages/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/common/theme_helper.dart';
@@ -27,6 +28,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     final phone_number_controller = TextEditingController();
     final password_controller = TextEditingController();
     final role_controller = TextEditingController();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -183,7 +185,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   "username": username_controller.text,
                                   "email": email_controller.text,
                                   "role": role_controller.text,
-                                  "phonenumber": phone_number_controller.text,
+                                  "phone": phone_number_controller.text,
                                   "password": password_controller.text,
                                 };
                                 var user_provider = new UserProvider();
@@ -191,6 +193,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 try {
                                   res = await user_provider.registerUser(body);
                                   print(res);
+                                  if (res.statusCode == 201) {
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                            builder: (context) => LoginPage()),
+                                        (Route<dynamic> route) => false);
+                                  }
                                 } catch (e) {
                                   print(e);
                                   res = 401;
@@ -198,10 +206,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
                                 //print(res.statusCode);
                                 //if (res.statusCode == 201) {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfilePage()),
-                                    (Route<dynamic> route) => false);
+
                               }
                               // } else {
                               //   print("Register Error");
