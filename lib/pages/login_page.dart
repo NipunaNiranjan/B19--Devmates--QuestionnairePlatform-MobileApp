@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       Text(
-                        'Student Management System',
+                        'Questionnaire Platform Application',
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),
@@ -106,6 +106,15 @@ class _LoginPageState extends State<LoginPage> {
                                             await user_provider.loginUser(body);
                                         print(res);
                                         if (res.statusCode == 200) {
+                                          Fluttertoast.showToast(
+                                              msg: "Login Successful!!",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.red,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0);
+
                                           Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(

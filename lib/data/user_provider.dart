@@ -9,9 +9,6 @@ class UserProvider {
     var res = await dio.post(url, data: body);
     print(res);
     return res;
-    // } on DioError catch (e) {
-    //
-    //`return res;
   }
 
   Future<Response> loginUser(Map body) async {
@@ -20,8 +17,5 @@ class UserProvider {
     var res = await dio.post(url, data: body);
     print(res);
     return res;
-    // } on DioError catch (e) {
-    //
-    //`return res;
   }
 }

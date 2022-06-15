@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../data/user_provider.dart';
 import 'profile_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -191,6 +192,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   res = await user_provider.registerUser(body);
                                   print(res);
                                   if (res.statusCode == 201) {
+                                    Fluttertoast.showToast(
+                                        msg: "Registration Successful!!",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                             builder: (context) => LoginPage()),
