@@ -1,12 +1,11 @@
-import 'package:FLUTTER_MOBILE_APPLICATION/pages/login_page.dart';
+import 'login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/common/theme_helper.dart';
-import 'package:FLUTTER_MOBILE_APPLICATION/pages/widgets/header_widget.dart';
+import 'widgets/header_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../data/user_provider.dart';
-
 import 'profile_page.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -18,8 +17,6 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
-  bool checkedValue = false;
-  bool checkboxValue = false;
 
   @override
   Widget build(BuildContext context) {

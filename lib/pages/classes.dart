@@ -6,43 +6,90 @@ class ClassPage extends StatefulWidget {
 }
 
 class _ClassPageState extends State<ClassPage> {
+  List<Mycard> mycard = [
+    Mycard(Icons.school, 'Class A', true),
+    Mycard(Icons.school, 'Class B', false),
+    Mycard(Icons.school, 'Class C', false),
+    Mycard(Icons.school, 'Class D', false),
+    Mycard(Icons.school, 'Class E', false),
+    Mycard(Icons.school, 'Class F', false),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-          alignment: Alignment.topCenter,
-          color: Color(0xFFF0F0F0),
-          height: MediaQuery.of(context).size.height,
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Row(
-              children: [
-                Icon(Icons.calendar_today, color: Colors.grey),
-                SizedBox(
-                  width: 15,
-                ),
-                RichText(
-                  text: TextSpan(
-                      text: "June",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0XFF263064),
-                        fontSize: 22,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: " 2022",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 16,
+    return Scaffold(
+      backgroundColor: Color(0xfff6f7f9),
+      appBar: AppBar(
+        title: Text('Your Classes'),
+      ),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Choose your Subject',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.black54,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                children: mycard
+                    .map(
+                      (e) => InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => ClassPage()),
+                          );
+                        },
+                        child: Card(
+                          color: e.isActive ? Colors.deepPurple : null,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                e.icon,
+                                size: 50,
+                                color: e.isActive
+                                    ? Colors.white
+                                    : Colors.deepPurple,
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                e.title,
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    color: e.isActive
+                                        ? Colors.white
+                                        : Colors.grey),
+                              ),
+                            ],
                           ),
                         ),
-                      ]),
-                ),
-              ],
-            )
-          ]))
-    ]);
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
+}
+
+class Mycard {
+  final icon;
+  final title;
+  bool isActive = false;
+
+  Mycard(this.icon, this.title, this.isActive);
 }

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/common/theme_helper.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'profile_page.dart';
 import 'registration_page.dart';
 import 'widgets/header_widget.dart';
@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   double _headerHeight = 250;
-  Key _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -94,32 +94,33 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    // if (_formKey.currentState!.validate()) {
-                                    Map body = {
-                                      "username": username_controller.text,
-                                      "password": password_controller.text,
-                                    };
-                                    var user_provider = new UserProvider();
-                                    var res;
-                                    try {
-                                      res = await user_provider.loginUser(body);
-                                      print(res);
-                                      if (res.statusCode == 200) {
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ProfilePage()));
+                                    if (_formKey.currentState!.validate()) {
+                                      Map body = {
+                                        "username": username_controller.text,
+                                        "password": password_controller.text,
+                                      };
+                                      var user_provider = new UserProvider();
+                                      var res;
+                                      try {
+                                        res =
+                                            await user_provider.loginUser(body);
+                                        print(res);
+                                        if (res.statusCode == 200) {
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ProfilePage()));
+                                        }
+                                      } catch (e) {
+                                        print(e);
+                                        res = 401;
                                       }
-                                    } catch (e) {
-                                      print(e);
-                                      res = 401;
+
+                                      //print(res.statusCode);
+                                      //if (res.statusCode == 201) {
+
                                     }
-
-                                    //print(res.statusCode);
-                                    //if (res.statusCode == 201) {
-
-                                    //}
 
                                     //After successful login we will redirect to profile page. Let's create profile page now
                                   },

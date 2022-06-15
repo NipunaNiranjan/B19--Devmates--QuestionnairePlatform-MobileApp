@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:FLUTTER_MOBILE_APPLICATION/pages/login_page.dart';
-import 'package:FLUTTER_MOBILE_APPLICATION/pages/widgets/header_widget.dart';
-
+import 'login_page.dart';
+import 'widgets/header_widget.dart';
+import 'classes.dart';
 import 'registration_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -143,28 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                },
-              ),
-              Divider(
-                color: Theme.of(context).primaryColor,
-                height: 1,
-              ),
-              ListTile(
-                leading: Icon(Icons.person_add_alt_1,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
-                title: Text(
-                  'Registration Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegistrationPage()),
+                    MaterialPageRoute(builder: (context) => ClassPage()),
                   );
                 },
               ),
