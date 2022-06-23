@@ -26,6 +26,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     final phone_number_controller = TextEditingController();
     final password_controller = TextEditingController();
     final role_controller = TextEditingController();
+    final confirm_password_controller = TextEditingController();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -154,6 +155,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               } else if (val.length < 7) {
                                 return 'password must be least 7 characters';
                               }
+                              return null;
+                            },
+                          ),
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
+                        ),
+                        SizedBox(height: 20.0),
+                        Container(
+                          child: TextFormField(
+                            controller: confirm_password_controller,
+                            obscureText: true,
+                            decoration: ThemeHelper().textInputDecoration(
+                                "Confirm Password*", "Confirm your password"),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return "Please enter your password";
+                              } else if (password_controller.text !=
+                                  confirm_password_controller.text) {
+                                return "passwords do not match!";
+                              }
+
                               return null;
                             },
                           ),

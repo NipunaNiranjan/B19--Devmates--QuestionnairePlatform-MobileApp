@@ -18,4 +18,22 @@ class UserProvider {
     print(res);
     return res;
   }
+
+  Future<Response> getClasses(String id, String token) async {
+    final url = RESTAPI + '/api/v1/class/student/' + id;
+    print(token);
+    var res = await dio.get(url,
+        options: Options(headers: {"Authorization": "Bearer " + token}));
+    print(res.data);
+    return res;
+  }
+
+  Future<Response> getQuestionnaires(String id, String token) async {
+    final url = RESTAPI + '/api/v1/questionnaires/class/' + id;
+    print(token);
+    var res = await dio.get(url,
+        options: Options(headers: {"Authorization": "Bearer " + token}));
+    print(res.data);
+    return res;
+  }
 }

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:FLUTTER_MOBILE_APPLICATION/data/user_model.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/data/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -66,11 +69,11 @@ class _LoginPageState extends State<LoginPage> {
                               SizedBox(height: 30.0),
                               Container(
                                 child: TextField(
-                                  controller: password_controller,
-                                  obscureText: true,
-                                  decoration: ThemeHelper().textInputDecoration(
-                                      'Password', 'Enter your password'),
-                                ),
+                                    controller: password_controller,
+                                    obscureText: true,
+                                    decoration: ThemeHelper()
+                                        .textInputDecoration(
+                                            'Password', 'Enter your password')),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
                               ),
@@ -104,8 +107,15 @@ class _LoginPageState extends State<LoginPage> {
                                       try {
                                         res =
                                             await user_provider.loginUser(body);
-                                        print(res);
+                                        //print(res);
                                         if (res.statusCode == 200) {
+                                          print(res.data);
+                                          var en_data = jsonEncode(res.data);
+                                          final user = Users.fromJson(
+                                              jsonDecode(en_data));
+                                          var id = user.id;
+                                          var token = user.accessToken;
+                                          print(id);
                                           Fluttertoast.showToast(
                                               msg: "Login Successful!!",
                                               toastLength: Toast.LENGTH_SHORT,
@@ -119,7 +129,10 @@ class _LoginPageState extends State<LoginPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ProfilePage()));
+                                                      ProfilePage(
+                                                        id: id,
+                                                        token: token,
+                                                      )));
                                         }
                                       } catch (e) {
                                         print(e);

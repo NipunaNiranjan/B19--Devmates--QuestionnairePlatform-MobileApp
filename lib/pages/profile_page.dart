@@ -1,11 +1,16 @@
+import 'package:FLUTTER_MOBILE_APPLICATION/pages/newclasses.dart';
+import 'package:FLUTTER_MOBILE_APPLICATION/pages/questionnaires.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login_page.dart';
 import 'widgets/header_widget.dart';
-import 'classes.dart';
 import 'registration_page.dart';
 
 class ProfilePage extends StatefulWidget {
+  String id;
+  String token;
+  ProfilePage({required this.id, required this.token});
   @override
   State<StatefulWidget> createState() {
     return _ProfilePageState();
@@ -41,33 +46,6 @@ class _ProfilePageState extends State<ProfilePage> {
             margin: EdgeInsets.only(
               top: 16,
               right: 16,
-            ),
-            child: Stack(
-              children: <Widget>[
-                Icon(Icons.notifications),
-                Positioned(
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(1),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 12,
-                      minHeight: 12,
-                    ),
-                    child: Text(
-                      '5',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 8,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                )
-              ],
             ),
           )
         ],
@@ -126,7 +104,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                    MaterialPageRoute(
+                        builder: (context) => ProfilePage(
+                              id: '',
+                              token: '',
+                            )),
                   );
                 },
               ),
@@ -135,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     size: _drawerIconSize,
                     color: Theme.of(context).accentColor),
                 title: Text(
-                  'Classes',
+                  'My Classes',
                   style: TextStyle(
                       fontSize: _drawerFontSize,
                       color: Theme.of(context).accentColor),
@@ -143,7 +125,30 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ClassPage()),
+                    MaterialPageRoute(
+                        builder: (context) => ClassPage(
+                              id: widget.id,
+                              token: widget.token,
+                            )),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.screen_lock_landscape_rounded,
+                  size: _drawerIconSize,
+                  color: Theme.of(context).accentColor,
+                ),
+                title: Text(
+                  'Questionnaires',
+                  style: TextStyle(
+                      fontSize: 17, color: Theme.of(context).accentColor),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => QuestionnariePage()),
                   );
                 },
               ),
