@@ -6,7 +6,7 @@ import 'widgets/header_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../data/user_provider.dart';
-import 'profile_page.dart';
+import 'Dashboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationPage extends StatefulWidget {

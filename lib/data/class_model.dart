@@ -20,13 +20,13 @@ class Classes {
   int statusCode;
   String status;
   String message;
-  List<Body> body;
+  List<cBody> body;
 
   factory Classes.fromJson(Map<String, dynamic> json) => Classes(
         statusCode: json["statusCode"],
         status: json["status"],
         message: json["message"],
-        body: List<Body>.from(json["body"].map((x) => Body.fromJson(x))),
+        body: List<cBody>.from(json["body"].map((x) => cBody.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,8 +37,8 @@ class Classes {
       };
 }
 
-class Body {
-  Body({
+class cBody {
+  cBody({
     required this.classId,
     required this.className,
     required this.noOfStudents,
@@ -56,7 +56,7 @@ class Body {
   DateTime createdAt;
   Teacher teacher;
 
-  factory Body.fromJson(Map<String, dynamic> json) => Body(
+  factory cBody.fromJson(Map<String, dynamic> json) => cBody(
         classId: json["classId"],
         className: json["className"],
         noOfStudents: json["noOfStudents"],

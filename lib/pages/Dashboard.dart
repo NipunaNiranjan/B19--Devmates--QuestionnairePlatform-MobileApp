@@ -1,5 +1,5 @@
-import 'package:FLUTTER_MOBILE_APPLICATION/pages/newclasses.dart';
-import 'package:FLUTTER_MOBILE_APPLICATION/pages/questionnaires.dart';
+import 'package:FLUTTER_MOBILE_APPLICATION/pages/myclasses.dart';
+import 'package:FLUTTER_MOBILE_APPLICATION/pages/myquestionnaire.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,17 +7,19 @@ import 'login_page.dart';
 import 'widgets/header_widget.dart';
 import 'registration_page.dart';
 
-class ProfilePage extends StatefulWidget {
+class DashboardPage extends StatefulWidget {
   String id;
   String token;
-  ProfilePage({required this.id, required this.token});
+  String username;
+  DashboardPage(
+      {required this.id, required this.token, required this.username});
   @override
   State<StatefulWidget> createState() {
-    return _ProfilePageState();
+    return DashboardPageState();
   }
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class DashboardPageState extends State<DashboardPage> {
   double _drawerIconSize = 24;
   double _drawerFontSize = 17;
 
@@ -81,12 +83,21 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 child: Container(
                   alignment: Alignment.bottomLeft,
-                  child: Text(
-                    "Questionnaire Plaform Application",
-                    style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Hello " + widget.username,
+                        style: TextStyle(
+                            fontSize: 27, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "Questionnaire Plaform Application",
+                        style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -105,9 +116,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ProfilePage(
-                              id: '',
-                              token: '',
+                        builder: (context) => DashboardPage(
+                              id: widget.id,
+                              token: widget.token,
+                              username: widget.username,
                             )),
                   );
                 },
@@ -126,29 +138,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ClassPage(
+                        builder: (context) => MyClassPage(
                               id: widget.id,
                               token: widget.token,
                             )),
-                  );
-                },
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.screen_lock_landscape_rounded,
-                  size: _drawerIconSize,
-                  color: Theme.of(context).accentColor,
-                ),
-                title: Text(
-                  'Questionnaires',
-                  style: TextStyle(
-                      fontSize: 17, color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => QuestionnariePage()),
                   );
                 },
               ),

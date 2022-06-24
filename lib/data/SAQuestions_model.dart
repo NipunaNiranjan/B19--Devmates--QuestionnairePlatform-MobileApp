@@ -5,13 +5,13 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-Questionnaires questionnairesFromJson(String str) =>
-    Questionnaires.fromJson(json.decode(str));
+SAQuestions questionnairesFromJson(String str) =>
+    SAQuestions.fromJson(json.decode(str));
 
-String questionnairesToJson(Questionnaires data) => json.encode(data.toJson());
+String questionnairesToJson(SAQuestions data) => json.encode(data.toJson());
 
-class Questionnaires {
-  Questionnaires({
+class SAQuestions {
+  SAQuestions({
     required this.statusCode,
     required this.status,
     required this.message,
@@ -21,13 +21,13 @@ class Questionnaires {
   int statusCode;
   String status;
   String message;
-  List<qBody> body;
+  List<Body> body;
 
-  factory Questionnaires.fromJson(Map<String, dynamic> json) => Questionnaires(
+  factory SAQuestions.fromJson(Map<String, dynamic> json) => SAQuestions(
         statusCode: json["statusCode"],
         status: json["status"],
         message: json["message"],
-        body: List<qBody>.from(json["body"].map((x) => qBody.fromJson(x))),
+        body: List<Body>.from(json["body"].map((x) => Body.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,30 +38,30 @@ class Questionnaires {
       };
 }
 
-class qBody {
-  qBody({
+class Body {
+  Body({
     required this.id,
+    required this.questionnaireId,
     required this.name,
-    required this.description,
-    required this.type,
+    required this.question,
   });
 
   int id;
+  int questionnaireId;
   String name;
-  String description;
-  String type;
+  String question;
 
-  factory qBody.fromJson(Map<String, dynamic> json) => qBody(
+  factory Body.fromJson(Map<String, dynamic> json) => Body(
         id: json["id"],
+        questionnaireId: json["questionnaireId"],
         name: json["name"],
-        description: json["description"],
-        type: json["type"],
+        question: json["question"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "questionnaireId": questionnaireId,
         "name": name,
-        "description": description,
-        "type": type,
+        "question": question,
       };
 }

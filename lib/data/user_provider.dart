@@ -28,10 +28,48 @@ class UserProvider {
     return res;
   }
 
+  Future<Response> getMCQQuestions(String id, String token) async {
+    final url = RESTAPI + '/api/v1/mcq_questions/' + id;
+    print(token);
+    var res = await dio.get(url,
+        options: Options(headers: {"Authorization": "Bearer " + token}));
+    print(res.data);
+    return res;
+  }
+
+  Future<Response> getSAQuestions(String id, String token) async {
+    final url = RESTAPI + '/api/v1/questions/' + id;
+    print(token);
+    var res = await dio.get(url,
+        options: Options(headers: {"Authorization": "Bearer " + token}));
+    print(res.data);
+    return res;
+  }
+
   Future<Response> getQuestionnaires(String id, String token) async {
     final url = RESTAPI + '/api/v1/questionnaires/class/' + id;
     print(token);
     var res = await dio.get(url,
+        options: Options(headers: {"Authorization": "Bearer " + token}));
+    print(res.data);
+    return res;
+  }
+
+  Future<Response> saveSA(String body, String token) async {
+    final url = RESTAPI + '/api/v1/submissions/';
+    print(token);
+    var res = await dio.post(url,
+        data: body,
+        options: Options(headers: {"Authorization": "Bearer " + token}));
+    print(res.data);
+    return res;
+  }
+
+  Future<Response> saveMCQ(String body, String token) async {
+    final url = RESTAPI + '/api/v1/submissions';
+    print(token);
+    var res = await dio.post(url,
+        data: body,
         options: Options(headers: {"Authorization": "Bearer " + token}));
     print(res.data);
     return res;

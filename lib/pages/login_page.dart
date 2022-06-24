@@ -7,7 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/common/theme_helper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'profile_page.dart';
+import 'Dashboard.dart';
 import 'registration_page.dart';
 import 'widgets/header_widget.dart';
 
@@ -21,6 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   double _headerHeight = 250;
   final _formKey = GlobalKey<FormState>();
+  bool _validate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                                               jsonDecode(en_data));
                                           var id = user.id;
                                           var token = user.accessToken;
+                                          var username = user.username;
                                           print(id);
                                           Fluttertoast.showToast(
                                               msg: "Login Successful!!",
@@ -129,9 +131,10 @@ class _LoginPageState extends State<LoginPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ProfilePage(
+                                                      DashboardPage(
                                                         id: id,
                                                         token: token,
+                                                        username: username,
                                                       )));
                                         }
                                       } catch (e) {
