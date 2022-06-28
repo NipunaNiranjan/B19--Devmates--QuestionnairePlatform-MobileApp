@@ -21,13 +21,13 @@ class mcqQuestions {
   int statusCode;
   String status;
   String message;
-  List<Body> body;
+  List<Bodymcq> body;
 
   factory mcqQuestions.fromJson(Map<String, dynamic> json) => mcqQuestions(
         statusCode: json["statusCode"],
         status: json["status"],
         message: json["message"],
-        body: List<Body>.from(json["body"].map((x) => Body.fromJson(x))),
+        body: List<Bodymcq>.from(json["body"].map((x) => Bodymcq.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,8 +38,8 @@ class mcqQuestions {
       };
 }
 
-class Body {
-  Body({
+class Bodymcq {
+  Bodymcq({
     required this.id,
     required this.question,
     required this.option1,
@@ -59,7 +59,7 @@ class Body {
   int correctAnswer;
   int questionnaireId;
 
-  factory Body.fromJson(Map<String, dynamic> json) => Body(
+  factory Bodymcq.fromJson(Map<String, dynamic> json) => Bodymcq(
         id: json["id"],
         question: json["question"],
         option1: json["option1"],

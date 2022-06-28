@@ -112,7 +112,7 @@ class DashboardPageState extends State<DashboardPage> {
                       ),
                       SizedBox(height: 20.0),
                       Text(
-                        "Questionnaire Platform App",
+                        widget.role,
                         style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,

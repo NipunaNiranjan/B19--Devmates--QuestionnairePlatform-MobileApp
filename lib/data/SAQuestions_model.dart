@@ -21,13 +21,13 @@ class SAQuestions {
   int statusCode;
   String status;
   String message;
-  List<Body> body;
+  List<Bodysa> body;
 
   factory SAQuestions.fromJson(Map<String, dynamic> json) => SAQuestions(
         statusCode: json["statusCode"],
         status: json["status"],
         message: json["message"],
-        body: List<Body>.from(json["body"].map((x) => Body.fromJson(x))),
+        body: List<Bodysa>.from(json["body"].map((x) => Bodysa.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,8 +38,8 @@ class SAQuestions {
       };
 }
 
-class Body {
-  Body({
+class Bodysa {
+  Bodysa({
     required this.id,
     required this.questionnaireId,
     required this.name,
@@ -51,7 +51,7 @@ class Body {
   String name;
   String question;
 
-  factory Body.fromJson(Map<String, dynamic> json) => Body(
+  factory Bodysa.fromJson(Map<String, dynamic> json) => Bodysa(
         id: json["id"],
         questionnaireId: json["questionnaireId"],
         name: json["name"],

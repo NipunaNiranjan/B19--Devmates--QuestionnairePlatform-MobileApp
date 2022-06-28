@@ -12,6 +12,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/data/mcqQuestions_model.dart';
 import 'myquestionnaire.dart';
+import '../pages/widgets/answersWidget.dart';
 
 class MyQuestionsPage extends StatefulWidget {
   String std_id;
@@ -110,150 +111,125 @@ class _MyQuestionsPagestate extends State<MyQuestionsPage> {
           )
         ],
       ),
-      body: FutureBuilder(
-        future: getQuestions(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasData) {
-            List _items = snapshot.data as List;
-            for (int i = 0; i < _items.length; i++) {
-              sa_answer_controler.add(TextEditingController());
-            }
+      body: SingleChildScrollView(
+        child: FutureBuilder(
+          future: getQuestions(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasData) {
+              List _items = snapshot.data as List;
+              for (int i = 0; i < _items.length; i++) {
+                sa_answer_controler.add(TextEditingController());
+              }
 
-            return Column(
-              children: [
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: _items.length,
-                    itemBuilder: (context, index) {
-                      if (widget.type == 'SA') {
-                        return Card(
-                          child: Column(
-                            children: [
-                              Text('(${index + 1})' + _items[index].question),
-                              TextFormField(
-                                controller: sa_answer_controler[index],
-                              ),
-                              MaterialButton(
-                                onPressed: () {
-                                  widget.saSubmission.shortAnswers.add(
-                                      ShortAnswer(
-                                          questionId: _items[index].id,
-                                          answer:
-                                              sa_answer_controler[index].text));
-                                },
-                                child: Text('Submit'),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
-                      return Card(
-                        child: Column(
-                          children: [
-                            Text('(${index + 1})' + _items[index].question),
-                            Row(
+              return Column(
+                children: [
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _items.length,
+                      itemBuilder: (context, index) {
+                        int selected = 0;
+                        if (widget.type == 'SA') {
+                          return Card(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  width: 20,
+                                  height: 10,
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        widget.mcqSubmission.mcqAnswers.add(
-                                            McqAnswer(
-                                                questionId: _items[index].id,
-                                                option: 1));
-                                      },
-                                      child: Text(_items[index].option1),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        widget.mcqSubmission.mcqAnswers.add(
-                                            McqAnswer(
-                                                questionId: _items[index].id,
-                                                option: 2));
-                                      },
-                                      child: Text(_items[index].option2),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        widget.mcqSubmission.mcqAnswers.add(
-                                            McqAnswer(
-                                                questionId: _items[index].id,
-                                                option: 3));
-                                      },
-                                      child: Text(_items[index].option3),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        widget.mcqSubmission.mcqAnswers.add(
-                                            McqAnswer(
-                                                questionId: _items[index].id,
-                                                option: 4));
-                                      },
-                                      child: Text(_items[index].option4),
-                                    ),
-                                  ],
+                                Text(
+                                  '(${index + 1}) ' + _items[index].question,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                TextFormField(
+                                  controller: sa_answer_controler[index],
+                                  decoration: new InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.purple))),
+                                ),
+                                MaterialButton(
+                                  onPressed: () {
+                                    widget.saSubmission.shortAnswers.add(
+                                        ShortAnswer(
+                                            questionId: _items[index].id,
+                                            answer: sa_answer_controler[index]
+                                                .text));
+                                  },
+                                  child: Text(
+                                    'Submit',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ],
                             ),
-                          ],
-                        ),
+                          );
+                        }
+
+                        return AnswersWidget(
+                          items: _items,
+                          index: index,
+                          mcqSubmission: widget.mcqSubmission,
+                        );
+                      }),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  MaterialButton(
+                    onPressed: () async {
+                      final userProvider = UserProvider();
+                      if (widget.type == 'SA') {
+                        print(widget.saSubmission.shortAnswers[0].answer);
+                        var body = saSubmissionToJson(widget.saSubmission);
+                        try {
+                          var en_data = jsonEncode(body);
+                          var data = jsonDecode(en_data);
+                          var res =
+                              await userProvider.saveSA(body, widget.token);
+                          print(res);
+                        } catch (e) {
+                          print(e);
+                        }
+                      } else {
+                        var body = mcqSubmissionToJson(widget.mcqSubmission);
+                        try {
+                          var res =
+                              await userProvider.saveMCQ(body, widget.token);
+                          print(res);
+                        } catch (e) {
+                          print(e);
+                        }
+                      }
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyQuestionnairePage(
+                                classId: widget.class_id,
+                                token: widget.token,
+                                std_id: widget.std_id)),
                       );
-                    }),
-                SizedBox(
-                  height: 30,
-                ),
-                MaterialButton(
-                  onPressed: () async {
-                    final userProvider = UserProvider();
-                    if (widget.type == 'SA') {
-                      print(widget.saSubmission.shortAnswers[0].answer);
-                      var body = saSubmissionToJson(widget.saSubmission);
-                      try {
-                        var en_data = jsonEncode(body);
-                        var data = jsonDecode(en_data);
-                        var res = await userProvider.saveSA(body, widget.token);
-                        print(res);
-                      } catch (e) {
-                        print(e);
-                      }
-                    } else {
-                      var body = mcqSubmissionToJson(widget.mcqSubmission);
-                      try {
-                        var res =
-                            await userProvider.saveMCQ(body, widget.token);
-                        print(res);
-                      } catch (e) {
-                        print(e);
-                      }
-                    }
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MyQuestionnairePage(
-                              classId: widget.class_id,
-                              token: widget.token,
-                              std_id: widget.std_id)),
-                    );
-                  },
-                  child: Text('Finish'),
-                  color: Colors.blue,
-                )
-              ],
-            );
-          } else if (snapshot.hasError) {
-            if (snapshot.error.runtimeType == DioError) {
-              DioError _error = snapshot.error as DioError;
-              return Text(_error.toString());
+                    },
+                    child: Text('Finish'),
+                    color: Colors.purple.withOpacity(0.5),
+                  )
+                ],
+              );
+            } else if (snapshot.hasError) {
+              if (snapshot.error.runtimeType == DioError) {
+                DioError _error = snapshot.error as DioError;
+                return Text(_error.toString());
+              }
             }
-          }
-          return Text('Something went wrong!');
-        },
+            return Text('Something went wrong!');
+          },
+        ),
       ),
     );
   }

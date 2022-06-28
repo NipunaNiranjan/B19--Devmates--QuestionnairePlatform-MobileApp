@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:FLUTTER_MOBILE_APPLICATION/data/user_model.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/data/user_provider.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -69,22 +70,36 @@ class _LoginPageState extends State<LoginPage> {
                           child: Column(
                             children: [
                               Container(
-                                child: TextField(
+                                child: TextFormField(
                                   controller: username_controller,
                                   decoration: ThemeHelper().textInputDecoration(
                                       'User Name', 'Enter your user name'),
+                                  validator: (val) {
+                                    if (val!.isEmpty) {
+                                      return "Please enter your Username";
+                                    }
+
+                                    return null;
+                                  },
                                 ),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
                               ),
                               SizedBox(height: 30.0),
                               Container(
-                                child: TextField(
-                                    controller: password_controller,
-                                    obscureText: true,
-                                    decoration: ThemeHelper()
-                                        .textInputDecoration(
-                                            'Password', 'Enter your password')),
+                                child: TextFormField(
+                                  controller: password_controller,
+                                  obscureText: true,
+                                  decoration: ThemeHelper().textInputDecoration(
+                                      'Password', 'Enter your password'),
+                                  validator: (val) {
+                                    if (val!.isEmpty) {
+                                      return "Please enter your password";
+                                    }
+
+                                    return null;
+                                  },
+                                ),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
                               ),
@@ -151,8 +166,20 @@ class _LoginPageState extends State<LoginPage> {
                                                       )));
                                         }
                                       } catch (e) {
-                                        print(e);
-                                        res = 401;
+                                        if (e is DioError) {
+                                          print(e);
+                                          (e.type == DioErrorType.response)
+                                              ? Fluttertoast.showToast(
+                                                  msg: "Invalid Login!!",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor: Colors.red,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0)
+                                              : print(e.toString());
+                                        }
                                       }
 
                                       //print(res.statusCode);

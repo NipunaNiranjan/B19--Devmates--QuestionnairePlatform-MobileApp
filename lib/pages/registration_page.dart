@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+
 import 'login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -234,14 +238,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         textColor: Colors.white,
                                         fontSize: 16.0);
 
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) => LoginPage()),
-                                        (Route<dynamic> route) => false);
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginPage()),
+                                    );
                                   }
                                 } catch (e) {
-                                  print(e);
-                                  res = 401;
+                                  print('************');
+                                  if (e is DioError) {
+                                    print(e);
+                                    (e.type == DioErrorType.response)
+                                        ? showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text('Sorry'),
+                                                content: Text(e.response!.data
+                                                    .toString()),
+                                              );
+                                            })
+                                        : print(e.type);
+                                  }
                                 }
 
                                 //print(res.statusCode);
