@@ -58,7 +58,7 @@ class _MyQuestionsPagestate extends State<MyQuestionsPage> {
         print(saquestions.body[0].name);
         questions_list = saquestions.body;
         return questions_list;
-      } else {
+      } else if (widget.type == 'MCQ') {
         widget.mcqSubmission = McqSubmission(
             studentId: int.parse(widget.std_id),
             questionnaireId: int.parse(widget.id),

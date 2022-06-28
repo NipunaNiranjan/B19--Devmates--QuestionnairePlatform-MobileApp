@@ -7,8 +7,6 @@ import 'package:FLUTTER_MOBILE_APPLICATION/data/user_provider.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/pages/Dashboard.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'myquestionnaire.dart';
 
@@ -82,23 +80,83 @@ class _MyClassPagestate extends State<MyClassPage> {
           } else if (snapshot.hasData) {
             List _items = snapshot.data as List;
             return ListView.builder(
-                shrinkWrap: true,
+                shrinkWrap: false,
                 itemCount: _items.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.purpleAccent,
-                      child: Text(
-                        _items[index].classId.toString(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                        ),
+                  return new InkWell(
+                    child: Container(
+                      height: 150.0,
+                      margin: new EdgeInsets.all(10.0),
+                      decoration: new BoxDecoration(
+                          borderRadius:
+                              new BorderRadius.all(new Radius.circular(10.0)),
+                          gradient: new LinearGradient(
+                              colors: [Colors.purpleAccent, Colors.deepPurple],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              tileMode: TileMode.clamp)),
+                      child: new Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          new Padding(
+                            padding:
+                                new EdgeInsets.only(left: 10.0, right: 10.0),
+                          ),
+                          new Expanded(
+                              child: new Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Text(
+                                _items[index].className,
+                                style: new TextStyle(
+                                    fontSize: 30.0,
+                                    color: Colors.white70,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              new SizedBox(
+                                height: 30.0,
+                              ),
+                              new Row(
+                                children: <Widget>[
+                                  new Column(
+                                    children: <Widget>[
+                                      new Text(
+                                          'Enrolled Students :' +
+                                              ' ' +
+                                              _items[index]
+                                                  .noOfStudents
+                                                  .toString(),
+                                          style: new TextStyle(
+                                              fontSize: 20.0,
+                                              color: Colors.white)),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                          )),
+                          new Padding(
+                              padding:
+                                  new EdgeInsets.only(left: 10.0, right: 10.0),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  new Text(
+                                    _items[index].classId.toString(),
+                                    style: new TextStyle(
+                                        fontSize: 30.0, color: Colors.white70),
+                                  ),
+                                  new Text(
+                                    'ClassID',
+                                    style: new TextStyle(
+                                        fontSize: 20.0, color: Colors.white70),
+                                  ),
+                                ],
+                              ))
+                        ],
                       ),
                     ),
-                    title: Text(_items[index].className),
-                    subtitle: Text(_items[index].noOfStudents.toString()),
-                    trailing: Text(_items[index].teacher.email),
                     onTap: () {
                       print('selected id is ${_items[index].classId}');
                       Navigator.push(

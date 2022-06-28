@@ -8,8 +8,6 @@ import 'package:FLUTTER_MOBILE_APPLICATION/pages/myquestions.dart';
 import 'package:FLUTTER_MOBILE_APPLICATION/pages/Dashboard.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class MyQuestionnairePage extends StatefulWidget {
   String std_id;
@@ -52,7 +50,7 @@ class _MyQuestionnairePagestate extends State<MyQuestionnairePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Questionnaires",
+          "My Questionnaires",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         elevation: 0.5,
@@ -87,12 +85,74 @@ class _MyQuestionnairePagestate extends State<MyQuestionnairePage> {
                 shrinkWrap: true,
                 itemCount: _items.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(_items[index].name),
-                    subtitle: Text(_items[index].description),
-                    trailing: Text(_items[index].type),
+                  return new InkWell(
+                    child: Container(
+                      height: 100.0,
+                      margin: new EdgeInsets.all(10.0),
+                      decoration: new BoxDecoration(
+                          borderRadius:
+                              new BorderRadius.all(new Radius.circular(10.0)),
+                          gradient: new LinearGradient(
+                              colors: [Colors.blueAccent, Colors.greenAccent],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              tileMode: TileMode.clamp)),
+                      child: new Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          new Padding(
+                            padding:
+                                new EdgeInsets.only(left: 10.0, right: 10.0),
+                          ),
+                          new Expanded(
+                              child: new Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Text(
+                                _items[index].name,
+                                style: new TextStyle(
+                                    fontSize: 30.0,
+                                    color: Colors.white70,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              new SizedBox(
+                                height: 10.0,
+                              ),
+                              new Row(
+                                children: <Widget>[
+                                  new Column(
+                                    children: <Widget>[
+                                      new Text(_items[index].description,
+                                          style: new TextStyle(
+                                              fontSize: 20.0,
+                                              color: Colors.white)),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                          )),
+                          new Padding(
+                              padding:
+                                  new EdgeInsets.only(left: 10.0, right: 10.0),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  new Text(
+                                    _items[index].type,
+                                    style: new TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30.0,
+                                        color: Colors.white),
+                                  ),
+                                ],
+                              ))
+                        ],
+                      ),
+                    ),
                     onTap: () {
-                      //print('selected id is ${_items[index].classId}');
+                      //  print('selected id is ${_items[index].classId}');
                       Navigator.push(
                         context,
                         MaterialPageRoute(

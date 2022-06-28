@@ -6,13 +6,19 @@ import 'package:flutter/services.dart';
 import 'login_page.dart';
 import 'widgets/header_widget.dart';
 import 'registration_page.dart';
+import 'dart:ui' as ui;
 
 class DashboardPage extends StatefulWidget {
   String id;
   String token;
   String username;
+  String role;
+
   DashboardPage(
-      {required this.id, required this.token, required this.username});
+      {required this.id,
+      required this.token,
+      required this.username,
+      required this.role});
   @override
   State<StatefulWidget> createState() {
     return DashboardPageState();
@@ -21,7 +27,7 @@ class DashboardPage extends StatefulWidget {
 
 class DashboardPageState extends State<DashboardPage> {
   double _drawerIconSize = 24;
-  double _drawerFontSize = 17;
+  double _drawerFontSize = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +91,28 @@ class DashboardPageState extends State<DashboardPage> {
                   alignment: Alignment.bottomLeft,
                   child: Column(
                     children: [
+                      Text("Welcome!!",
+                          style: TextStyle(
+                              fontSize: 20.0, color: Colors.amberAccent)),
                       Text(
-                        "Hello " + widget.username,
+                        widget.username,
                         style: TextStyle(
-                            fontSize: 27, fontWeight: FontWeight.bold),
+                            fontStyle: FontStyle.italic,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            foreground: Paint()
+                              ..shader = ui.Gradient.linear(
+                                const Offset(0, 20),
+                                const Offset(150, 20),
+                                <Color>[
+                                  Colors.orange,
+                                  Colors.yellowAccent,
+                                ],
+                              )),
                       ),
+                      SizedBox(height: 20.0),
                       Text(
-                        "Questionnaire Plaform Application",
+                        "Questionnaire Platform App",
                         style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
@@ -120,6 +141,7 @@ class DashboardPageState extends State<DashboardPage> {
                               id: widget.id,
                               token: widget.token,
                               username: widget.username,
+                              role: widget.role,
                             )),
                   );
                 },

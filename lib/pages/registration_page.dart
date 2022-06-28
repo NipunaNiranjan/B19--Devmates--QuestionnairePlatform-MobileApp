@@ -90,6 +90,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             controller: username_controller,
                             decoration: ThemeHelper().textInputDecoration(
                                 'User Name', 'Enter your user name'),
+                            validator: (val) {
+                              if ((val!.isEmpty)) {
+                                return "Please Enter the User Name";
+                              }
+                              return null;
+                            },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -101,6 +107,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             controller: role_controller,
                             decoration: ThemeHelper()
                                 .textInputDecoration('Role', 'Enter the Role'),
+                            validator: (val) {
+                              if ((val!.isEmpty)) {
+                                return "Please Enter the Role";
+                              }
+                              return null;
+                            },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -112,7 +124,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 "E-mail address", "Enter your email"),
                             keyboardType: TextInputType.emailAddress,
                             validator: (val) {
-                              if (!(val!.isEmpty) &&
+                              if ((val!.isEmpty) &&
                                   !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                       .hasMatch(val)) {
                                 return "Enter a valid email address";
@@ -130,7 +142,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 "Mobile Number", "Enter your mobile number"),
                             keyboardType: TextInputType.phone,
                             validator: (val) {
-                              if (!(val!.isEmpty) &&
+                              if ((val!.isEmpty) &&
                                   !RegExp(r"^(\d+)*$").hasMatch(val)) {
                                 return "Enter a valid phone number";
                               } else if (val.length != 10) {

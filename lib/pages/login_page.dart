@@ -11,6 +11,16 @@ import 'Dashboard.dart';
 import 'registration_page.dart';
 import 'widgets/header_widget.dart';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:FLUTTER_MOBILE_APPLICATION/common/theme_helper.dart';
+import 'widgets/header_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hexcolor/hexcolor.dart';
+import '../data/user_provider.dart';
+import 'Dashboard.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -21,7 +31,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   double _headerHeight = 250;
   final _formKey = GlobalKey<FormState>();
-  bool _validate = false;
+  // bool _validate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                                         res =
                                             await user_provider.loginUser(body);
                                         //print(res);
+
                                         if (res.statusCode == 200) {
                                           print(res.data);
                                           var en_data = jsonEncode(res.data);
@@ -117,6 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                                           var id = user.id;
                                           var token = user.accessToken;
                                           var username = user.username;
+                                          var role = user.roles;
                                           print(id);
                                           Fluttertoast.showToast(
                                               msg: "Login Successful!!",
@@ -135,6 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                                                         id: id,
                                                         token: token,
                                                         username: username,
+                                                        role: role.toString(),
                                                       )));
                                         }
                                       } catch (e) {

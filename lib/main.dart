@@ -15,14 +15,15 @@ class LoginUiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter UI',
+      debugShowCheckedModeBanner: false,
+      title: 'Questionnaire App',
       theme: ThemeData(
         primaryColor: _primaryColor,
         accentColor: _accentColor,
         scaffoldBackgroundColor: Colors.grey.shade100,
         primarySwatch: Colors.grey,
       ),
-      home: SplashScreen(title: 'Flutter UI'),
+      home: SplashScreen(title: 'Questionnaire App'),
     );
   }
 }
