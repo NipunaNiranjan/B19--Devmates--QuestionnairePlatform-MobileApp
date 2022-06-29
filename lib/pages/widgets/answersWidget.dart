@@ -28,7 +28,7 @@ class _AnswersWidgetState extends State<AnswersWidget> {
             alignment: Alignment.centerLeft,
             child: Text(
               '(${widget.index + 1}) ' + widget.items[widget.index].question,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           Row(
@@ -54,11 +54,11 @@ class _AnswersWidgetState extends State<AnswersWidget> {
                         Icon((Icons.circle),
                             color:
                                 selected == 1 ? Colors.purple : Colors.white),
-                        SizedBox(width: 5),
+                        SizedBox(width: 10),
                         Text(
                           widget.items[widget.index].option1,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 20,
                           ),
                         )
                       ]),
@@ -79,10 +79,10 @@ class _AnswersWidgetState extends State<AnswersWidget> {
                         Icon((Icons.circle),
                             color:
                                 selected == 2 ? Colors.purple : Colors.white),
-                        SizedBox(width: 5),
+                        SizedBox(width: 10),
                         Text(widget.items[widget.index].option2,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 20,
                             ))
                       ]),
                     ),
@@ -102,10 +102,10 @@ class _AnswersWidgetState extends State<AnswersWidget> {
                         Icon((Icons.circle),
                             color:
                                 selected == 3 ? Colors.purple : Colors.white),
-                        SizedBox(width: 5),
+                        SizedBox(width: 10),
                         Text(widget.items[widget.index].option3,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 20,
                             ))
                       ]),
                     ),
@@ -125,10 +125,10 @@ class _AnswersWidgetState extends State<AnswersWidget> {
                         Icon((Icons.circle),
                             color:
                                 selected == 4 ? Colors.purple : Colors.white),
-                        SizedBox(width: 5),
+                        SizedBox(width: 10),
                         Text(widget.items[widget.index].option4,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 20,
                             ))
                       ]),
                     ),

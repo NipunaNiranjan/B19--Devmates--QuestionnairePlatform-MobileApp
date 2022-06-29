@@ -87,7 +87,7 @@ class _MyQuestionsPagestate extends State<MyQuestionsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Questions",
+          "My Questions",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         elevation: 0.5,
@@ -216,8 +216,9 @@ class _MyQuestionsPagestate extends State<MyQuestionsPage> {
                                 std_id: widget.std_id)),
                       );
                     },
-                    child: Text('Finish'),
-                    color: Colors.purple.withOpacity(0.5),
+                    child: Text('Finish',
+                        style: TextStyle(color: Colors.black, fontSize: 20.0)),
+                    color: Colors.pinkAccent.withOpacity(0.5),
                   )
                 ],
               );

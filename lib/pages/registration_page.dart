@@ -244,7 +244,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     );
                                   }
                                 } catch (e) {
-                                  print('************');
                                   if (e is DioError) {
                                     print(e);
                                     (e.type == DioErrorType.response)
@@ -260,14 +259,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         : print(e.type);
                                   }
                                 }
-
-                                //print(res.statusCode);
-                                //if (res.statusCode == 201) {
-
                               }
-                              // } else {
-                              //   print("Register Error");
-                              // }
                             },
                           ),
                         ),

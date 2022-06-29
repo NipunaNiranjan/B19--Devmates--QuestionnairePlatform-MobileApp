@@ -111,10 +111,13 @@ class DashboardPageState extends State<DashboardPage> {
                               )),
                       ),
                       SizedBox(height: 20.0),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                      ),
                       Text(
                         widget.role,
                         style: TextStyle(
-                            fontSize: 25,
+                            fontSize: 20,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
@@ -131,7 +134,8 @@ class DashboardPageState extends State<DashboardPage> {
                 title: Text(
                   'DashBoard',
                   style: TextStyle(
-                      fontSize: 17, color: Theme.of(context).accentColor),
+                      fontSize: _drawerFontSize,
+                      color: Theme.of(context).accentColor),
                 ),
                 onTap: () {
                   Navigator.push(
